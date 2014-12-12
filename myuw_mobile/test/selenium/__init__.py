@@ -1,6 +1,7 @@
 # From https://github.com/Victory/django-travis-saucelabs
 import os
 import sys
+import re
 
 from unittest2 import skipIf
 
@@ -48,9 +49,9 @@ else:
         android_nexus['device-orientation'] = 'portrait'
 
         browsers = [
+            android_nexus,
             iphone,
             ipad,
-            android_nexus,
             {"platform": "Mac OS X 10.9",
              "browserName": "chrome",
              "version": "35"},
@@ -60,6 +61,7 @@ else:
             {"platform": "Linux",
              "browserName": "firefox",
              "version": "29"}]
+        ]
     else:
         browsers = []
 
@@ -84,10 +86,20 @@ def on_platforms(platforms, local):
             module[name] = type(name, (base_class,), d)
     return decorator
 
+from django.conf import settings
+
+
+class SeleniumLiveServerTestCase(LiveServerTestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(SeleniumLiveServerTestCase, self).__init__(*args, **kwargs)
+        if settings.DEBUG == False:
+            settings.DEBUG = True
+
 
 @on_platforms(browsers, RUN_LOCAL)
 @skipIf(not RUN_SELENIUM, "Requires RUN_SELENIUM=True as an environment variable")
-class HelloSauceTest(LiveServerTestCase):
+class HelloSauceTest(SeleniumLiveServerTestCase):
     """
     Runs a test using travis-ci and saucelabs
     """
@@ -141,5 +153,7 @@ class HelloSauceTest(LiveServerTestCase):
 
     def test_sauce(self):
         self.driver.get(self.live_server_url + '/mobile/landing/')
+        title = self.driver.title
+        self.assertTrue(re.match(".*myuw.*", text, re.I))
         self.assertEquals(self.driver.title, "MyUW Mobile Home")
 
