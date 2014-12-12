@@ -2,7 +2,7 @@ addons:
   sauce_connect:
     username: "uw-it-aca-myuw"
     access_key:
-      secure: "d6TOiITCC+g+bTEMYUiW9ywYnY9GyvRP5admJcvlaJLg7Lqcj5nkuwKQ9MGmSpSceCL9mjPVjn5/D6XcpehmJxC1YfpCu9N2hijdDiyCtmd/tBdQhdExNa+zzaXLg5uGllGc7mA+RFR8gojmQE6VtzI2WIdLYO/eWQfWhj35O/Y="
+      secure: "c83+uoOlx/1eiYzPpdBqaUl8NL/R4zZhRK8bBNAwdDHVbrGqBjM2fRZ9RBexj89mX1DSvXCMMTmzexPjb+m1KTPVWI9VBXpZaGQdmmubZqoRPpHXU518U5oxoUl/EQZSM7js5qHCFpeVCCgDMjBw9bcoS33OAl4E2VvsYB106cQ="
 language: python
 python:
   - "2.7"
