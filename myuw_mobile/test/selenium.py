@@ -60,7 +60,7 @@ else:
              "version": "11"},
             {"platform": "Linux",
              "browserName": "firefox",
-             "version": "29"}]
+             "version": "29"}
         ]
     else:
         browsers = []

@@ -30,5 +30,3 @@ from myuw_mobile.test.template_tags import TestNetidHash
 from myuw_mobile.test.context_processors import TestContextProcessors
 
 from myuw_mobile.test.selenium import HelloSauceTest
-
-
