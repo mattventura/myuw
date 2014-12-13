@@ -99,7 +99,7 @@ class SeleniumLiveServerTestCase(LiveServerTestCase):
 
 @on_platforms(browsers, RUN_LOCAL)
 @skipIf(not RUN_SELENIUM, "Requires RUN_SELENIUM=True as an environment variable")
-class HelloSauceTest(SeleniumLiveServerTestCase):
+class SeleniumTest(SeleniumLiveServerTestCase):
     """
     Runs a test using travis-ci and saucelabs
     """
@@ -152,6 +152,7 @@ class HelloSauceTest(SeleniumLiveServerTestCase):
             self.driver.quit()
 
     def test_sauce(self):
+        print "In test"
         self.driver.get(self.live_server_url + '/mobile/landing/')
         title = self.driver.title
         self.assertTrue(re.match(".*myuw.*", text, re.I))
