@@ -9,6 +9,7 @@ try:
     from selenium import webdriver
     has_selenium = True
 except Exception as ex:
+    print ex
     has_selenium = False
 
 from django.test import LiveServerTestCase
@@ -27,6 +28,7 @@ else:
         ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
         sauce = SauceClient(USERNAME, ACCESS_KEY)
     except Exception as ex:
+        print "EX: ", ex
         pass
 
     if has_selenium:
@@ -84,6 +86,7 @@ def on_platforms(platforms, local):
             d['desired_capabilities'] = platform
             name = "%s_%s" % (base_class.__name__, i + 1)
             module[name] = type(name, (base_class,), d)
+
     return decorator
 
 from django.conf import settings
@@ -152,7 +155,6 @@ class SeleniumTest(SeleniumLiveServerTestCase):
             self.driver.quit()
 
     def test_sauce(self):
-        print "In test"
         self.driver.get(self.live_server_url + '/mobile/landing/')
         title = self.driver.title
         self.assertTrue(re.match(".*myuw.*", text, re.I))

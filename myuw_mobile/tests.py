@@ -28,4 +28,7 @@ from myuw_mobile.test.api.notices import TestNotices
 from myuw_mobile.test.api.uwemail import TestUWEmail as TestUwEmailAPI
 from myuw_mobile.test.template_tags import TestNetidHash
 from myuw_mobile.test.context_processors import TestContextProcessors
-from myuw_mobile.test.live_selenium import SeleniumTest
+
+# live_selenium dynamically builds classes - this gets them to load.
+import myuw_mobile.test.live_selenium
+from myuw_mobile.test.live_selenium import *
