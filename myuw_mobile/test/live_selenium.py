@@ -64,6 +64,12 @@ else:
              "browserName": "firefox",
              "version": "29"}
         ]
+
+        browsers = [
+            {"platform": "Linux",
+             "browserName": "firefox",
+             "version": "29"}
+        ]
     else:
         browsers = []
 
@@ -154,9 +160,38 @@ class SeleniumTest(SeleniumLiveServerTestCase):
         finally:
             self.driver.quit()
 
-    def test_sauce(self):
-        self.driver.get(self.live_server_url + '/mobile/landing/')
-        title = self.driver.title
-        self.assertTrue(re.match(".*myuw.*", text, re.I))
-        self.assertEquals(self.driver.title, "MyUW Mobile Home")
+    def test_myuw(self):
+        from time import sleep
 
+        dates = [
+            "2013-04-01",
+            "2013-06-06",
+            "2013-06-07",
+            "2013-06-08",
+            "2013-06-14",
+            "2013-06-15",
+            "2013-02-02",
+            "2013-02-01",
+            "2013-01-31",
+            "2013-03-10",
+            "2013-03-11",
+            "2013-03-26",
+            "2013-03-27",
+            "2013-04-01",
+        ]
+
+
+        for date in dates:
+            self.driver.get(self.live_server_url + '/mobile/admin/dates/')
+            element = self.driver.find_element_by_xpath("//input[@name='date']")
+            element.clear()
+            element.send_keys(date)
+            element.submit()
+            self.driver.get(self.live_server_url + '/mobile/landing/')
+            sleep(2)
+            title = self.driver.title
+            self.assertEquals(self.driver.title, "MyUW Mobile Home")
+
+            divs = self.driver.find_elements_by_css_selector("#landing_content > div")
+#            for div in divs:
+#                print "D: ", div.get_attribute("id"), div.get_attribute("style")
