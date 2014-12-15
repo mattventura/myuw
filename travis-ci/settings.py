@@ -91,3 +91,5 @@ STATIC_URL = '/static/'
 
 # For the LiveServerTestCase...
 MEDIA_URL = '/media/'
+USERSERVICE_ADMIN_GROUP="G"
+RESTCLIENTS_ADMIN_GROUP="G"
