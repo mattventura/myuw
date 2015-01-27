@@ -51,7 +51,7 @@ def get_all_affiliations(request):
     #    As the UW Affiliation group (gws) only knows about one campus,
     #    we use registered sections in the current quarter
     #    to determine the campuses.
-    log_info(logger, data)
+    log_info(request, logger, data)
     return data
 
 

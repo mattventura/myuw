@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 import json
-from userservice.user import UserService
+from userservice.user import get_user
 
 
 class RESTDispatch:
@@ -11,8 +11,7 @@ class RESTDispatch:
     def run(self, *args, **named_args):
         request = args[0]
 
-        user_service = UserService()
-        netid = user_service.get_user()
+        netid = get_user(request)
         if not netid:
             return invalid_session()
 

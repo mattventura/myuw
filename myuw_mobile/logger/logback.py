@@ -1,21 +1,21 @@
 import logging
-from userservice.user import UserService
+from userservice.user import get_override_user, get_original_user
 from myuw_mobile.logger.timer import Timer
 
 
-def log_exception(logger, action, exc_info):
+def log_exception(request, logger, action, exc_info):
     """
     exc_info is a string containing
     the full stack trace, the exception type and value
     """
     logger.error("%s - %s => %s ",
-                 get_logging_userid(),
+                 get_logging_userid(request),
                  action,
                  exc_info.splitlines())
 
 
-def log_info(logger, message):
-    logger.info("%s %s", get_logging_userid(), message)
+def log_info(request, logger, message):
+    logger.info("%s %s", get_logging_userid(request), message)
 
 
 def log_time(logger, action_message, timer):
@@ -31,15 +31,14 @@ def log_resp_time(logger, action, timer):
              timer)
 
 
-def get_logging_userid():
+def get_logging_userid(request):
     """
     Return <actual user netid> acting_as: <override user netid> if
     the user is acting as someone else, otherwise
     <actual user netid> no_override: <actual user netid>
     """
-    user_svc = UserService()
-    override_userid = user_svc.get_override_user()
-    actual_userid = user_svc.get_original_user()
+    override_userid = get_override_user(request)
+    actual_userid = get_original_user(request)
     log_format = 'base_user: %s acting_user: %s is_override: %s'
     try:
         if override_userid:

@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 import logging
-from userservice.user import UserService
+from userservice.user import get_user
 from myuw_mobile.dao.pws import is_student
 from myuw_mobile.logger.timer import Timer
 from myuw_mobile.logger.logresp import log_invalid_netid_response
@@ -16,7 +16,7 @@ def user_login(request):
     timer = Timer()
     logger = logging.getLogger('myuw_mobile.views.mobile_login.user_login')
 
-    netid = UserService().get_user()
+    netid = get_user(request)
     if netid is None:
         log_invalid_netid_response(logger, timer)
         return invalid_session()

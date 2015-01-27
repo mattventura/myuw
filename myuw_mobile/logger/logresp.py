@@ -1,5 +1,5 @@
 from myuw_mobile.dao.affiliation import get_all_affiliations
-from myuw_mobile.logger.logback import log_info, log_time
+from myuw_mobile.logger.logback import log_time
 
 
 def log_response_time(logger, message, timer):

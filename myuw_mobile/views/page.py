@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.conf import settings
 import logging
-from userservice.user import UserService
+from userservice.user import get_user
 from myuw_mobile.dao.term import get_current_quarter
 from myuw_mobile.dao.affiliation import get_all_affiliations
 from myuw_mobile.logger.timer import Timer
@@ -38,7 +38,7 @@ def index(request,
         "card_display_dates": get_card_visibilty_date_values(request),
     }
 
-    netid = UserService().get_user()
+    netid = get_user(request)
     if not netid:
         log_invalid_netid_response(logger, timer)
         return invalid_session()

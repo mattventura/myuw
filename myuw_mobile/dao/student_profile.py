@@ -9,7 +9,7 @@ import traceback
 from restclients.sws.person import get_person_by_regid
 from myuw_mobile.dao.pws import get_regid_of_current_user
 from myuw_mobile.logger.timer import Timer
-from myuw_mobile.logger.logback import log_resp_time, log_exception, log_info
+from myuw_mobile.logger.logback import log_resp_time, log_exception
 
 logger = logging.getLogger(__name__)
 

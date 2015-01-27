@@ -7,6 +7,6 @@ def log_interaction(request, interaction_type):
     logger = logging.getLogger('myuw_mobile.views.logger')
 
     if interaction_type is not None:
-        log_info(logger, "Interaction: %s" % interaction_type)
+        log_info(request, logger, "Interaction: %s" % interaction_type)
 
     return HttpResponse()

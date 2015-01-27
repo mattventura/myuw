@@ -15,7 +15,6 @@ from myuw_mobile.test.api import missing_url, get_user, get_user_pass
                                 'django.contrib.auth.middleware.RemoteUserMiddleware',
                                 'django.contrib.messages.middleware.MessageMiddleware',
                                 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-                                'userservice.user.UserServiceMiddleware',
                                 ),
                    AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
                    )

@@ -7,7 +7,7 @@ import logging
 import traceback
 from restclients.sws.financial import get_account_balances_by_regid
 from myuw_mobile.logger.timer import Timer
-from myuw_mobile.logger.logback import log_resp_time, log_exception, log_info
+from myuw_mobile.logger.logback import log_resp_time, log_exception
 from myuw_mobile.dao.pws import get_regid_of_current_user
 
 logger = logging.getLogger(__name__)

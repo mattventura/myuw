@@ -9,7 +9,7 @@ import traceback
 from restclients.pws import PWS
 from userservice.user import UserService
 from myuw_mobile.logger.timer import Timer
-from myuw_mobile.logger.logback import log_resp_time, log_exception, log_info
+from myuw_mobile.logger.logback import log_resp_time, log_exception
 
 logger = logging.getLogger(__name__)
 

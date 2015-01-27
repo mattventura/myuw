@@ -7,7 +7,7 @@ import logging
 import traceback
 from restclients.sws.notice import get_notices_by_regid
 from myuw_mobile.logger.timer import Timer
-from myuw_mobile.logger.logback import log_resp_time, log_exception, log_info
+from myuw_mobile.logger.logback import log_resp_time, log_exception
 from myuw_mobile.dao.pws import get_regid_of_current_user
 from myuw_mobile.models import UserNotices, TuitionDate
 from myuw_mobile.dao import get_user_model

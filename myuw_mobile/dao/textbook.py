@@ -13,7 +13,7 @@ from myuw_mobile.logger.logback import log_resp_time, log_exception
 logger = logging.getLogger(__name__)
 
 
-def get_textbook_by_schedule(schedule):
+def get_textbook_by_schedule(request, schedule):
     """
     returns textbooks for the schedule
     """
@@ -22,7 +22,7 @@ def get_textbook_by_schedule(schedule):
         try:
             return Bookstore().get_books_for_schedule(schedule)
         except Exception as ex:
-            log_exception(logger,
+            log_exception(request, logger,
                           'get_books_for_schedule',
                           traceback.format_exc())
         finally:
@@ -32,7 +32,7 @@ def get_textbook_by_schedule(schedule):
     return None
 
 
-def get_verba_link_by_schedule(schedule):
+def get_verba_link_by_schedule(request, schedule):
     """
     returns a link to the verba price compare page for a schedule
     """
@@ -41,7 +41,7 @@ def get_verba_link_by_schedule(schedule):
         try:
             return Bookstore().get_verba_link_for_schedule(schedule)
         except Exception as ex:
-            log_exception(logger,
+            log_exception(request, logger,
                           'get_verba_link',
                           traceback.format_exc())
         finally:

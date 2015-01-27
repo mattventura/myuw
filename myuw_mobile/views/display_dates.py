@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from userservice.user import UserService
+from userservice.user import get_user
 from authz_group import Group
 from django.conf import settings
 from django.http import Http404
@@ -28,8 +28,7 @@ DATE_KEYS = ['myuw_after_submission', 'myuw_after_last_day', 'myuw_after_reg',
 def override(request):
     logger = logging.getLogger(__name__)
 
-    user_service = UserService()
-    user_service.get_user()
+    get_user(request)
     override_error_username = None
     override_error_msg = None
     # Do the group auth here.
