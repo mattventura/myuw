@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 import logging
 from userservice.user import UserService
-from myuw_mobile.dao.pws import is_student
+from myuw_mobile.dao.gws import is_undergrad_student, is_grad_student
 from myuw_mobile.logger.timer import Timer
 from myuw_mobile.logger.logresp import log_invalid_netid_response
 from myuw_mobile.logger.logresp import log_response_time
@@ -21,7 +21,7 @@ def user_login(request):
         log_invalid_netid_response(logger, timer)
         return invalid_session()
 
-    if is_student():
+    if is_undergrad_student() or is_grad_student():
         log_response_time(logger, 'to mobile', timer)
         return redirect("myuw_mobile.views.page.index")
 
