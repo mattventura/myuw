@@ -15,6 +15,9 @@ function MyuwLog()  {
     };
 
     this.log_card = function(card, action, extra_args) {
+        if (LogUtils.is_idle){
+            return;
+        }
         var message = "",
             key;
         if (typeof(card.element)=== "object"){
@@ -40,6 +43,9 @@ function MyuwLog()  {
         this.card_logger.info(JSON.stringify(message));
     };
     this.log_link = function(link, action) {
+        if (LogUtils.is_idle){
+            return;
+        }
         var parent_cards = $(link).closest('.card');
         var card_name;
         var card_info;
@@ -84,12 +90,11 @@ function MyuwLog()  {
         }
 
         // Periodically log how long cards have been on screen
-        // Disabled due to MUWM-3384
-        //if (!LogUtils.on_screen_interval_check) {
-        //    LogUtils.on_screen_interval_check = window.setInterval(function() {
-        //        LogUtils.periodicVisibilityLogging();
-        //    }, LogUtils.PERIODIC_ONSCREEN_INTERVAL);
-        //}
+        if (!LogUtils.on_screen_interval_check && !LogUtils.is_idle) {
+            LogUtils.on_screen_interval_check = window.setInterval(function() {
+                LogUtils.periodicVisibilityLogging();
+            }, LogUtils.PERIODIC_ONSCREEN_INTERVAL);
+        }
         return log;
     };
 
@@ -112,9 +117,11 @@ function MyuwLog()  {
 var LogUtils = {
     PERCENTAGE_VISIBLE_THRESHOLD: 0.50,
     PERCENTAGE_OFFSCREEN_THRESHOLD: 0.05,
-    PERIODIC_ONSCREEN_INTERVAL: 1000,
+    PERIODIC_ONSCREEN_INTERVAL: 2000,
     PERIODIC_SEND_INTERVAL: 2000,
+    TIME_UNTIL_IDLE: 20000,
     current_visible_cards: {},
+    is_idle: false,
 
     get_new_visible_cards: function(){
         var cards = LogUtils.get_all_cards(),
@@ -320,6 +327,7 @@ var LogUtils = {
        window.myuw_log = myuwlog;
        LogUtils._init_link_logging();
        LogUtils._init_card_logging();
+       LogUtils._init_idle_tracking();
     },
 
     get_card_name: function(card) {
@@ -469,7 +477,24 @@ var LogUtils = {
 
     cardLoaded: function(name, el) {
         $(window).trigger("myuw:card_load", [ name, el ]);
+    },
+
+    _init_idle_tracking: function() {
+        setTimeout(function(){
+            $(document).idle({
+                onIdle: function(){
+                    LogUtils.is_idle = true;
+                },
+                onActive: function() {
+                    LogUtils.is_idle = false;
+                },
+                idle: LogUtils.TIME_UNTIL_IDLE
+            });
+        },
+        2000)
+
     }
+
 };
 
 /* node.js exports */
